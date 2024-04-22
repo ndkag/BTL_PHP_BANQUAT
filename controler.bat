@@ -1,0 +1,13 @@
+php artisan make:controller TaiKhoanController --model=TaiKhoan --resource
+php artisan make:controller LoaiQuatController --model=LoaiQuat --resource
+php artisan make:controller QuatController --model=Quat --resource
+php artisan make:controller ChiTietQuatController --model=ChiTietQuat --resource
+php artisan make:controller NhanVienController --model=NhanVien --resource
+php artisan make:controller KhachHangController --model=KhachHang --resource
+php artisan make:controller NhaCungCapController --model=NhaCungCap --resource
+php artisan make:controller HoaDonBanController --model=HoaDonBan --resource
+php artisan make:controller ChiTietHDBController --model=ChiTietHDB --resource
+php artisan make:controller HoaDonNhapController --model=HoaDonNhap --resource
+php artisan make:controller ChiTietHDNController --model=ChiTietHDN --resource
+php artisan make:controller ChuDeController --model=ChuDe --resource
+php artisan make:controller BaiVietController --model=BaiViet --resource
