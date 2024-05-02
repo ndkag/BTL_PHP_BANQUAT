@@ -19,6 +19,7 @@ use App\Http\Controllers\ChiTietNhapXeController;
 use App\Http\Controllers\ChiTietNhapPhuTungController;
 use App\Http\Controllers\ChiTietQuatController;
 use App\Http\Controllers\CTMauSacController;
+use App\Http\Controllers\Index_AdminController;
 use App\Http\Controllers\Index_UserController;
 use App\Http\Controllers\LoaiQuatController;
 use App\Http\Controllers\QuatController;
@@ -26,9 +27,9 @@ use App\Models\CTMauSac;
 use App\Models\LoaiQuat;
 use Illuminate\Auth\Events\Login;
 
-Route::get('/admin/index', function () {
-    return view('ADMIN.index');
-})->name('admin.index');
+
+Route::get('/admin/index', [Index_AdminController::class, 'index']);
+
 //bảng tài khoản
 Route::get('/admin/user', [TaiKhoanController::class, 'index'])->name('ADMIN.TaiKhoan.index');
 
@@ -81,3 +82,11 @@ Route::get('/admin/login', function () {
 });
 Route::get('/admin/login/in', [TaiKhoanController::class, 'admin_login'])->name('admin.login');
 Route::get('/admin/logout', [TaiKhoanController::class, 'admin_logout']);
+
+
+//Khách hàng
+Route::get('/admin/khachhang', [KhachHangController::class, 'index'])->name('ADMIN.khachhang.index');
+Route::get('/admin/khachhang/{id}/del', [KhachHangController::class, 'destroy']);
+Route::get('/admin/khachhang/create', [KhachHangController::class, 'create']);
+Route::get('/admin/khachhang/{id}/edit', [KhachHangController::class, 'edit'])->name('khachhang.edit');
+Route::post('/admin/khachhang/{id}/save', [KhachHangController::class, 'save'])->name('khachhang.save');

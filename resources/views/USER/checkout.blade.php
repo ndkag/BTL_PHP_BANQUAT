@@ -196,7 +196,7 @@ $kh = session('KhachHang');
 
 
 													<!-- input chi tiết hoá đơn -->
-													<input type="hidden" name="MaQuat[]" value="\">
+													<input type="hidden" name="MaQuat[]" value="{{$c['MaQuat']}}">
 													<input type="hidden" name="MaCTMauSac[]" value="{{$c['MaCTMauSac']}}">
 													<input type="hidden" name="GiaBan[]" value="{{$c['price']}}">
 													<input type="hidden" name="SoLuong[]" value="{{$c['quant']}}">

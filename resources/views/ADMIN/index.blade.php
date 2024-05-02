@@ -66,36 +66,36 @@
 
     <div class="hoatdong-contener">
         <a href="#" style="background-color: #3F6CE3;" class="card-hoatdong">
-            <div class="title-card">Bình luận mới</div>
+            <div class="title-card">Tổng đơn hàng đã bán</div>
             <div class="thongso-card">
-                <div class="number-card">200</div>
-                <div class="kieu-card">Bình luận</div>
+                <div class="number-card">{{$tktong[0]['TongDonHang']}}</div>
+                <div class="kieu-card">Đơn hàng</div>
             </div>
         </a>
 
         <a href="#" style="background-color: #6A8DE9;" class="card-hoatdong">
-            <div class="title-card">Bài đăng mới</div>
+            <div class="title-card">Doanh thu</div>
             <div class="thongso-card">
-                <div class="number-card">10</div>
-                <div class="kieu-card">Bài</div>
+                <div class="number-card">{{number_format( $tktong[0]['TongDoanhThu'])}}</div>
+                <div class="kieu-card">VNĐ</div>
             </div>
         </a>
 
         <a href="#" style="background-color: #EB8E6D;" class="card-hoatdong">
-            <div class="title-card">Người dùng mới</div>
+            <div class="title-card">Khách hàng</div>
             <div class="thongso-card">
-                <div class="number-card">1000</div>
+                <div class="number-card">{{$tktong[0]['TongKhachHang']}}</div>
                 <div class="kieu-card">Người</div>
             </div>
         </a>
 
         <a href="#" style="background-color: #FF5B5C;" class="card-hoatdong">
-            <div class="title-card">Tổng người dùng</div>
+            <div class="title-card">Tổng sản phẩm đã bán</div>
             <div class="thongso-card">
-                <div class="number-card">2000
+                <div class="number-card">{{$tktong[0]['TongSanPhamDaBan']}}
 
                 </div>
-                <div class="kieu-card">Người</div>
+                <div class="kieu-card">Sản phẩm</div>
             </div>
         </a>
 
@@ -153,13 +153,86 @@
 
     <div class="khung_bieudo">
         <canvas id="myChart"></canvas>
-
     </div>
 
 </div>
 <!-- END---------------------contener-maint -->
 
+<script>
+    function LoadTop5() {
 
+
+        var tk = <?php echo $tk; ?>; // Nhận dữ liệu từ PHP và chuyển đổi thành JavaScript object
+
+
+        var labels = [];
+        var data = [];
+
+        // Lặp qua dữ liệu từ biến $tk và lấy tên quạt và số lượng bán
+        tk.forEach(function(item) {
+            labels.push(item.MaQuat);
+            data.push(item.SoLuongBan);
+        });
+
+        var chartData = {
+            labels: labels,
+            datasets: [{
+                label: "Số lượng bán",
+                data: data,
+                backgroundColor: [
+                    "rgba(255, 99, 132, 0.7)",
+                    "rgba(255, 159, 64, 0.7)",
+                    "rgba(255, 205, 86, 0.7)",
+                    "rgba(75, 192, 192, 0.7)",
+                    "rgba(54, 162, 235, 0.7)",
+                ],
+                borderColor: [
+                    "rgba(255, 99, 132, 1)",
+                    "rgba(255, 159, 64, 1)",
+                    "rgba(255, 205, 86, 1)",
+                    "rgba(75, 192, 192, 1)",
+                    "rgba(54, 162, 235, 1)",
+                ],
+                borderWidth: 1,
+            }],
+        };
+
+        var options = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                },
+            },
+        };
+
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myChart = new Chart(ctx, {
+            type: "bar",
+            data: chartData,
+            options: options,
+        });
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        LoadTop5();
+
+        function opgettime() {
+            var gettime = new Date();
+            var getgio = gettime.getHours();
+            var getphut = gettime.getMinutes();
+            var getgiay = gettime.getSeconds();
+            getgio = (getgio < 10 ? "0" : "") + getgio;
+            getphut = (getphut < 10 ? "0" : "") + getphut;
+            getgiay = (getgiay < 10 ? "0" : "") + getgiay;
+
+            document.querySelector(".gettime").innerHTML =
+                getgio + ":" + getphut + ":" + getgiay;
+        }
+        setInterval(opgettime, 1000);
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 @endsection

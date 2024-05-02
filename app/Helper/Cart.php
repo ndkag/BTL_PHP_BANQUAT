@@ -31,8 +31,11 @@ class Cart
             'name' => $Quat->TenQuat,
             'quant' => $quanlity
         ];
-
-        $this->items[$Quat->MaQuat] = $item;
+        if (array_key_exists($Quat->MaQuat, $this->items)) {
+            $this->items[$Quat->MaQuat]['quant'] += $quanlity;
+        } else {
+            $this->items[$Quat->MaQuat] = $item;
+        }
         session(['cart' => $this->items]);
     }
 
@@ -74,5 +77,4 @@ class Cart
 
         return $total_quanlity;
     }
-
 }

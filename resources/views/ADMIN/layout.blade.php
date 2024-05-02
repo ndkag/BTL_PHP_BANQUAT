@@ -58,6 +58,15 @@
                     <img src="{{asset('ADMIN/IMAGE/Forum.png')}}" alt="" class="icon-item">
                     <a href="/admin/loaiquat" class="item-title">Quản lý loại quạt</nav></a>
                 </div>
+
+                <div class="item">
+                    <img src="{{asset('ADMIN/IMAGE/Forum.png')}}" alt="" class="icon-item">
+                    <a href="/admin/khachhang" class="item-title">Quản lý khách hàng</nav></a>
+                </div>
+                <div class="item">
+                    <img src="{{asset('ADMIN/IMAGE/Forum.png')}}" alt="" class="icon-item">
+                    <a href="/admin/nhanvien" class="item-title">Quản lý nhân viên</nav></a>
+                </div>
                 <div class="item">
                     <img src="{{asset('ADMIN/IMAGE/event.png')}}" alt="" class="icon-item">
                     <a href="/admin/file" class="item-title">Quản lý file</a>
