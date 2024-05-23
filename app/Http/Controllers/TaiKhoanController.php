@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KhachHang;
 use App\Models\TaiKhoan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class TaiKhoanController extends Controller
@@ -39,22 +40,16 @@ class TaiKhoanController extends Controller
     {
 
         if ($id == 0) {
-            //create
             $tk = new TaiKhoan();
-            $tk->TenTaiKhoan = $res->TenTaiKhoan;
-            $tk->Email = $res->Email;
-            $tk->SDT = $res->SDT;
-            $tk->MatKhau = $res->MatKhau;
-            $tk->Quyen = $res->Quyen;
         } else {
             //upload 
             $tk = TaiKhoan::where('MaTaiKhoan', $id)->first();
-            $tk->TenTaiKhoan = $res->TenTaiKhoan;
-            $tk->Email = $res->Email;
-            $tk->SDT = $res->SDT;
-            $tk->MatKhau = $res->MatKhau;
-            $tk->Quyen = $res->Quyen;
         }
+        $tk->TenTaiKhoan = $res->TenTaiKhoan;
+        $tk->Email = $res->Email;
+        $tk->SDT = $res->SDT;
+        $tk->MatKhau = Hash::make($res->MatKhau);
+        $tk->Quyen = $res->Quyen;
         $tk->save();
         return redirect()->route('ADMIN.TaiKhoan.index');
     }
@@ -64,10 +59,12 @@ class TaiKhoanController extends Controller
         $tenTaiKhoan = $request->TenTaiKhoan;
         $matKhau = $request->MatKhau;
 
+
         // Kiểm tra xem tài khoản có tồn tại không
         $taiKhoan = TaiKhoan::where('TenTaiKhoan', $tenTaiKhoan)->first();
-        // dd($tenTaiKhoan, $matKhau, $taiKhoan);
-        if (!$taiKhoan || $matKhau != $taiKhoan->MatKhau) {
+
+
+        if (!$taiKhoan || !Hash::check($matKhau, $taiKhoan->MatKhau)) {
             return back()->withErrors(['login' => 'Tên tài khoản hoặc mật khẩu không đúng']);
         } elseif (2 == $taiKhoan->Quyen) {
             return back()->withErrors(['login' => 'Tài khoản không tồn tại']);
@@ -77,6 +74,31 @@ class TaiKhoanController extends Controller
         // Chuyển hướng đến trang chính sau khi đăng nhập thành công
         return redirect()->route('admin.index');
     }
+
+
+    public function login(Request $request)
+    {
+        $tenTaiKhoan = $request->TenTaiKhoan;
+        $matKhau = $request->MatKhau;
+
+
+        // Kiểm tra xem tài khoản có tồn tại không
+        $taiKhoan = TaiKhoan::where('TenTaiKhoan', $tenTaiKhoan)->first();
+
+
+        if (!$taiKhoan || $matKhau !== $taiKhoan->MatKhau) {
+            return back()->withErrors(['login' => 'Tên tài khoản hoặc mật khẩu không đúng']);
+        } elseif (2 == $taiKhoan->Quyen) {
+            return back()->withErrors(['login' => 'Tài khoản không tồn tại']);
+        }
+        $request->session()->put('tka', $taiKhoan);
+
+        // Chuyển hướng đến trang chính sau khi đăng nhập thành công
+        return redirect()->route('admin.index');
+    }
+
+
+
     public function admin_logout(Request $request)
     {
         Session::forget('tka');
@@ -113,7 +135,7 @@ class TaiKhoanController extends Controller
         $tk->TenTaiKhoan = $res->TenTaiKhoan;
         $tk->Email = $res->Email;
         $tk->SDT = $res->SDT;
-        $tk->MatKhau = $res->MatKhau;
+        $tk->MatKhau = Hash::make($res->MatKhau);
         $tk->Quyen = 2; //khách hàng
         $tk->save();
         session()->flash('success', 'Đăng ký tài khoản thành công!');
@@ -130,8 +152,8 @@ class TaiKhoanController extends Controller
 
         // Kiểm tra xem tài khoản có tồn tại không
         $taiKhoan = TaiKhoan::where('TenTaiKhoan', $tenTaiKhoan)->first();
-        // dd($tenTaiKhoan, $matKhau, $taiKhoan);
-        if (!$taiKhoan || $matKhau != $taiKhoan->MatKhau) {
+
+        if (!$taiKhoan || !Hash::check($matKhau, $taiKhoan->MatKhau)) {
             return back()->withErrors(['login' => 'Tên tài khoản hoặc mật khẩu không đúng']);
         }
 

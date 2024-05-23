@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class QuatController extends Controller
 {
-    
+
 
     public function index(Request $request)
     {
@@ -30,17 +30,23 @@ class QuatController extends Controller
         $db = $query->paginate(10);
         return view('ADMIN.Quat.index', ['quat' => $db, 'search' => $search]);
     }
+
+
     public function detail($id)
     {
         $db = Quat::where('MaQuat', $id)->first();
         $ctq = ChiTietQuat::where('MaQuat', $id)->first();
         $ct = CTMauSac::where('MaQuat', $id)->get();
+        $lq = Quat::where('MaLoaiQuat', $db->MaLoaiQuat)->paginate(10);
+
+
         return view(
             'USER.pro-detail',
             [
                 'p' => $db,
                 'ct' => $ct,
                 'ctq' => $ctq,
+                'lq' => $lq,
 
             ]
         );

@@ -63,6 +63,7 @@ $stt = 1;
                 <th>Tên đăng nhập</th>
                 <th>Mật khẩu</th>
                 <th>Email</th>
+                <th>SĐT</th>
                 <th>Quyền</th>
                 <th>Sửa</th>
                 <th>Xoá</th>

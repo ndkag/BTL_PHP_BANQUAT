@@ -13,7 +13,6 @@ class Index_UserController extends Controller
 
     public function index()
     {
-        
         $db = Quat::all();
         $hotitem = Quat::paginate(8);
         $dbloai = LoaiQuat::paginate(5);
@@ -22,7 +21,7 @@ class Index_UserController extends Controller
             ->select('Quat.*', 'LoaiQuat.TenLoaiQuat')
             ->take(2)
             ->get();
-    
+
         return view('USER.index', [
             'pro' => $db,
             'loai' => $dbloai,
@@ -30,8 +29,6 @@ class Index_UserController extends Controller
             'quatvaloai' => $quatloai
         ]);
     }
-
-
 
     public function hotitem(Request $req)
     {

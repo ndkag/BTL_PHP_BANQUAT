@@ -18,6 +18,8 @@ class Cart
         return $this->items;
     }
 
+
+
     //thêm mới sản phẩm vào giỏ hàng
     public function add($Quat, $quanlity = 1)
     {
@@ -37,6 +39,16 @@ class Cart
             $this->items[$Quat->MaQuat] = $item;
         }
         session(['cart' => $this->items]);
+    }
+
+
+    //cập nhật số lượng trong giỏ hàng
+    public function update($MaQuat, $quanlity)
+    {
+        if (array_key_exists($MaQuat, $this->items)) {
+            $this->items[$MaQuat]['quant'] = $quanlity;
+            session(['cart' => $this->items]);
+        }
     }
 
     //xoá sản phẩm khỏi giỏ hàng

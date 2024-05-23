@@ -9,8 +9,8 @@
 			<div class="col-12">
 				<div class="bread-inner">
 					<ul class="bread-list">
-						<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-						<li class="active"><a href="blog-single.html">Cart</a></li>
+						<li><a href="/">Trang chủ<i class="ti-arrow-right"></i></a></li>
+						<li class="active"><a href="#">Giỏ hàng</a></li>
 					</ul>
 				</div>
 			</div>
@@ -33,45 +33,41 @@
 							<th class="text-center">Giá</th>
 							<th class="text-center">Số lượng</th>
 							<th class="text-center">Thành tiền</th>
+							<th class="text-center">Cập nhật</th>
 							<th class="text-center"> <a onclick="return confirm('Bạn có chắc muốn xoá tất cả sản phẩm khỏi giỏ hàng?')" href="{{ route('cart.removeAll') }}"><i class="ti-trash remove-icon"></i></a></th>
 						</tr>
 					</thead>
 					<tbody>
 						@foreach($cart->getCart() as $c)
 						<tr>
-							<td class="image" data-title="No"><img src="{{asset('uploads/'.$c['image'])}}" alt="#"></td>
-							<td class="product-des" data-title="Description">
-								<p class="product-name"><a href="#">{{$c['name']}}</a></p>
-								<p class="product-des">Màu: {{$c['color']}}</p>
-							</td>
-							<td class="price" data-title="Price"><span id="cart_price">{{number_format($c['price'])}}</span> VNĐ</td>
-							<td class="price" data-title="Price"><span id="cart_price">{{$c['quant']}}</span></td>
+							<form action="{{ route('cart.update') }}" method="POST">
+								@csrf
+								<input type="hidden" name="MaQuat" value="{{$c['MaQuat']}}">
 
-							<!-- <td class="qty" data-title="Qty"> -->
-							<!-- Input Order -->
-							<!-- <div class="input-group"> -->
-							<!-- <div class="button minus">
-										<button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant[{{$c['MaQuat']}}]">
-											<i class="ti-minus"></i>
-										</button>
-									</div> -->
-							<!-- <input type="text" name="quant[{{$c['MaQuat']}}]" class="input-number" data-min="1" data-max="100" value="{{$c['quant']}}"> -->
-							<!-- <div class="button plus">
-										<button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant[{{$c['MaQuat']}}]">
-											<i class="ti-plus"></i>
-										</button>
-									</div> -->
-							<!-- </div> -->
-							<!--/ End Input Order -->
-							<!-- </td> -->
-							<td class="total-amount" data-title="Total">
-								{{number_format( $c['price']* $c['quant'])}} VNĐ
-							</td>
+								<td class="image" data-title="No"><img src="{{asset('uploads/'.$c['image'])}}" alt="#"></td>
+								<td class="product-des" data-title="Description">
+									<p class="product-name"><a href="#">{{$c['name']}}</a></p>
+									<p class="product-des">Màu: {{$c['color']}}</p>
+								</td>
+								<td class="price" data-title="Price"><span id="cart_price">{{number_format($c['price'])}}</span> VNĐ</td>
+								<!-- <td class="price" data-title="Price"><span id="cart_price">{{$c['quant']}}</span></td> -->
+								<td>
+									<input class="inp-soluong_cart" type="number" name="quant" min="1" max="50" value="{{$c['quant']}}">
+								</td>
 
-							<td onclick="return confirm('Bạn có chắc muốn xoá sản phẩm khỏi giỏ hàng?')" class="action" data-title="Remove">
-								<a href="{{ route('cart.destroy', ['MaQuat' => $c['MaQuat']]) }}"><i class="ti-trash remove-icon"></i></a>
-							</td>
+								<td class="total-amount" data-title="Total">
+									{{number_format( $c['price']* $c['quant'])}} VNĐ
+								</td>
+								<td>
+									 <button type="submit" class="btn-update_cart"><img src="{{asset('images/icons8_update_left_rotation.svg')}}" alt=""> </button>
+								</td>
+								<td onclick="return confirm('Bạn có chắc muốn xoá sản phẩm khỏi giỏ hàng?')" class="action" data-title="Remove">
+									<a href="{{ route('cart.destroy', ['MaQuat' => $c['MaQuat']]) }}"><i class="ti-trash remove-icon"></i></a>
+								</td>
+							</form>
 						</tr>
+
+
 
 
 						@endforeach
@@ -104,11 +100,11 @@
 									<li>Cart Subtotal<span>$330.00</span></li>
 									<li>Shipping<span>Free</span></li>
 									<li>You Save<span>$20.00</span></li>
-									<li class="last">You Pay<span>{{number_format($cart->getTotalPrice())}} VNĐ</span></li>
+									<li class="last">Tổng tiền<span>{{number_format($cart->getTotalPrice())}} VNĐ</span></li>
 								</ul>
 								<div class="button5">
-									<a href="/checkout" class="btn">Checkout</a>
-									<a href="/index" class="btn">Continue shopping</a>
+									<a href="/checkout" class="btn">Thanh toán</a>
+									<a href="/" class="btn">Tiếp tục mua hàng</a>
 								</div>
 							</div>
 						</div>

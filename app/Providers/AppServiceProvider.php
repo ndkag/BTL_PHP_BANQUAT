@@ -32,10 +32,9 @@ class AppServiceProvider extends ServiceProvider
 
 
         view()->composer('*', function ($view) {
-            $loaiQuat = LoaiQuat::all();
+            $loaiQuat = LoaiQuat::paginate(10);
 
             $view->with('loaiQuat', $loaiQuat);
         });
-
     }
 }

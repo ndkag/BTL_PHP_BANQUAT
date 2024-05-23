@@ -2,7 +2,7 @@
 @section('title','Trang chi tiết')
 
 @section('main')
-
+<link rel="stylesheet" href="{{asset('css/product.css')}}" />
 
 <!-- Breadcrumbs -->
 <div class="breadcrumbs">
@@ -12,9 +12,9 @@
         <div class="bread-inner">
           <ul class="bread-list">
             <li>
-              <a href="index1.html">Home<i class="ti-arrow-right"></i></a>
+              <a href="/">Trang chủ<i class="ti-arrow-right"></i></a>
             </li>
-            <li class="active"><a href="blog-single.html">Detail</a></li>
+            <li class="active"><a href="#">Trang chi tiết</a></li>
           </ul>
         </div>
       </div>
@@ -160,7 +160,7 @@
               <div class="row">
                 @foreach($ct as $ctItem)
                 <input type="radio" class="btn-check" name="color" id="option{{ $ctItem->MaCTMauSac }}" data-quantity="{{ $ctItem->SoLuong }}" value="{{ $ctItem->TenMauSac }}" autocomplete="off">
-                <label class="pro-color" style="background-color: {{ $ctItem->MaMau }};" for="option{{ $ctItem->MaCTMauSac }}"></label>
+                <label class="pro-color" style="background-color: {{$ctItem->MaMau}};" for="option{{ $ctItem->MaCTMauSac }}"></label>
                 @endforeach
               </div>
             </div>
@@ -193,11 +193,6 @@
               </div>
             </div>
           </form>
-
-
-
-
-
         </div>
       </div>
 
@@ -215,9 +210,76 @@
         </div>
         <h6 class="center-t">
           {!! $p['MoTa'] !!}
-
-
         </h6>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <hr>
+        </div>
+        <div class="col-4 describe-title center-t orangeDark-c">
+          Có thể bạn cũng thích
+        </div>
+        <div class="col-4">
+          <hr>
+        </div>
+      </div>
+      <div class="row cothebancungthich">
+
+        @foreach($lq as $p)
+        <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+          <div class="single-product">
+            <div class="product-img">
+              <a href="/detail/{{$p->MaQuat}}">
+                <img class="default-img" src="{{ asset('Uploads/' . $p['HinhAnhXe']) }}" alt="#">
+                <img class="hover-img" src="{{ asset('Uploads/' . $p['HinhAnhXe']) }}" alt="#">
+              </a>
+              <div class="button-head">
+                <div class="product-action-2">
+                  <a type="submit" title="Add to cart" href="#">Thêm vào giỏ hàng</a>
+                </div>
+              </div>
+
+            </div>
+            <div class="product-content">
+              <h3><a href="/detail/{{$p->MaQuat}}">{{$p['TenQuat']}}</a></h3>
+              <div class=" product-price">
+                <span>{{number_format($p['Gia'])}} VND</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        @endforeach
+        <div class="box-sum">
+          <div class="box-all">
+            <!-- Trong phần hiển thị phân trang -->
+            <div class="pagination">
+              <ul class="pagination-list">
+                @if ($lq->onFirstPage())
+                <li class="disabled"><span>&laquo;</span></li>
+                @else
+                <li><a href="{{ $lq->previousPageUrl() }}" rel="prev">&laquo;</a></li>
+                @endif
+                @foreach ($lq->getUrlRange(1, $lq->lastPage()) as $page => $url)
+                @if ($page == $lq->currentPage())
+                <li class="active"><span>{{ $page }}</span></li>
+                @else
+                <li><a href="{{ $url }}">{{ $page }}</a></li>
+                @endif
+                @endforeach
+
+                @if ($lq->hasMorePages())
+                <li><a href="{{ $lq->nextPageUrl() }}" rel="next">&raquo;</a></li>
+                @else
+                <li class="disabled"><span>&raquo;</span></li>
+                @endif
+
+              </ul>
+            </div>
+
+
+
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -135,7 +135,6 @@ class Checkout extends Controller
         $kh->AnhDaiDien =  $request->AnhDaiDien;
         $kh->save();
 
-
         if (!session('KhachHang')) {
             $request->session()->put('KhachHang', $kh);
         }
@@ -172,7 +171,6 @@ class Checkout extends Controller
             $ctmau->SoLuong = $soLuongConLai;
             $ctmau->save();
         }
-
 
         $currentPath = $request->path();
         if ($currentPath == 'checkout/save' || $currentPath == 'checkoutnew/save') {

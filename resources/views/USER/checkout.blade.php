@@ -20,8 +20,8 @@ $kh = session('KhachHang');
 			<div class="col-12">
 				<div class="bread-inner">
 					<ul class="bread-list">
-						<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-						<li class="active"><a href="blog-single.html">Checkout</a></li>
+						<li><a href="/">Trang chủ<i class="ti-arrow-right"></i></a></li>
+						<li class="active"><a href="#">Thanh Toán</a></li>
 					</ul>
 				</div>
 			</div>
@@ -63,7 +63,6 @@ $kh = session('KhachHang');
 									<!-- Form -->
 
 
-									<!--  -->
 
 									@if(Request::is('checkout') || Request::is('checkout-b'))
 									@if(session('KhachHang'))

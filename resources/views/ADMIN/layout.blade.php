@@ -63,10 +63,13 @@
                     <img src="{{asset('ADMIN/IMAGE/Forum.png')}}" alt="" class="icon-item">
                     <a href="/admin/khachhang" class="item-title">Quản lý khách hàng</nav></a>
                 </div>
+                @if(session('tka') && session('tka')->Quyen == 0)
                 <div class="item">
                     <img src="{{asset('ADMIN/IMAGE/Forum.png')}}" alt="" class="icon-item">
                     <a href="/admin/nhanvien" class="item-title">Quản lý nhân viên</nav></a>
                 </div>
+                @endif
+
                 <div class="item">
                     <img src="{{asset('ADMIN/IMAGE/event.png')}}" alt="" class="icon-item">
                     <a href="/admin/file" class="item-title">Quản lý file</a>

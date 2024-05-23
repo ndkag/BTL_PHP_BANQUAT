@@ -26,7 +26,7 @@ use App\Http\Controllers\QuatController;
 use App\Models\CTMauSac;
 use App\Models\LoaiQuat;
 
-Route::get('/index', [Index_UserController::class, 'index'])->name('index');
+Route::get('/', [Index_UserController::class, 'index'])->name('index');
 
 
 //cart
@@ -34,9 +34,9 @@ Route::post('/add-cart', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::get('/remove-cart/{MaQuat}', [CartController::class, 'destroy'])->name('cart.destroy');
 Route::get('/remove-all-cart', [CartController::class, 'removeAll'])->name('cart.removeAll');
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 
 Route::get('/detail/{id}', [QuatController::class, 'detail']);
-
 
 
 //sign 

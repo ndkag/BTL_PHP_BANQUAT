@@ -33,7 +33,13 @@ class CartController extends Controller
     }
 
 
-
+    public function update(Request $request, Cart $cart)
+    {
+        $MaQuat = $request->MaQuat;
+        $quant = $request->quant;
+        $cart->update($MaQuat, $quant);
+        return redirect()->back();
+    }
 
 
     public function destroy($MaQuat, Cart $cart)

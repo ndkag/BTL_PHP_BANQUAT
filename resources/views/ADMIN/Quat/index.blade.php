@@ -78,13 +78,13 @@ $stt = 1;
                 <td>{{$t['TenQuat']}}</td>
                 <td>{{$t['MaLoaiQuat']}}</td>
                 <td>{{$t['NamSanXuat']}}</td>
-                <td><img src="{{ asset('Uploads/' . $t['HinhAnhXe']) }}" style="width:60px; " alt=""></td>
+                <td class="img-hinhanhquat_ad"><img src="{{ asset('Uploads/' . $t['HinhAnhXe']) }}" style="width:60px; " alt=""></td>
 
 
                 <td>{{number_format($t['Gia'])}}</td>
                 <td>{{number_format($t['GiaKhuyenMai'])}}</td>
 
-               
+
 
 
                 <td>
@@ -96,12 +96,12 @@ $stt = 1;
                 </td>
 
                 <td>
-                <a href="{{route('Quat.detail_ad',$t['MaQuat'])}}">
+                    <a href="{{route('Quat.detail_ad',$t['MaQuat'])}}">
 
-                    <button id="btn_sua" style="width: 100%; height: 100%;">
-                        <img id="icon_detail" src="{{asset('ADMIN/IMAGE/icons8_collapse_arrow_1.svg')}}" alt="lỗi" width="25px">
-                    </button>
-                </a>
+                        <button id="btn_sua" style="width: 100%; height: 100%;">
+                            <img id="icon_detail" src="{{asset('ADMIN/IMAGE/icons8_collapse_arrow_1.svg')}}" alt="lỗi" width="25px">
+                        </button>
+                    </a>
                 </td>
             </tr>
 

@@ -17,7 +17,6 @@ class Index_AdminController extends Controller
         (SELECT SUM(TongTien) FROM HoaDonBan) AS TongDoanhThu,
         (SELECT COUNT(*) FROM KhachHang) AS TongKhachHang,
         (SELECT SUM(SoLuong) FROM ChiTietHDB) AS TongSanPhamDaBan;
-    
     ");
         $tk1 = json_decode(json_encode($tk1), true); // Chuyển đổi kết quả từ object sang mảng
 

@@ -3,83 +3,80 @@
 namespace App\Http\Controllers;
 
 use App\Models\NhanVien;
+use App\Models\TaiKhoan;
 use Illuminate\Http\Request;
 
 class NhanVienController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+
+    public function index(Request $request)
     {
-        //
+        $search = $request->search;
+
+        // Lọc dữ liệu theo từ khóa tìm kiếm nếu có
+        $query = NhanVien::query();
+        if ($search) {
+            $query->where(function ($query) use ($search) {
+                $query->where('MaNhanVien', 'like', '%' . $search . '%')
+                    ->orWhere('TenNhanVien', 'like', '%' . $search . '%')
+                    ->orWhere('SDT', 'like', '%' . $search . '%')
+                    ->orWhere('Email', 'like', '%' . $search . '%');
+            });
+        }
+
+        // Phân trang cho kết quả
+        $db = $query->paginate(10);
+        return view('ADMIN.NhanVien.index', ['kh' => $db,  'search' => $search]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function save(Request $request, $id)
+    {
+        $file_name = null;
+
+        if ($request->has('image_upload')) {
+            $file = $request->image_upload;
+            $file_name = $file->getClientOriginalName();
+            $file->move(public_path('uploads'), $file_name);
+        }
+
+        if ($id == 0) {
+            $kh = new NhanVien();
+        } else {
+            $kh = NhanVien::where('MaNhanVien', $id)->first();
+        }
+        $kh->MaTaiKhoan = $request->MaTaiKhoan;
+        $kh->TenNhanVien = $request->TenNhanVien;
+        $kh->GioiTinh = $request->GioiTinh;
+        $kh->ChucVu = $request->ChucVu;
+        $kh->SDT = $request->SDT;
+        $kh->DiaChi = $request->DiaChi;
+        $kh->Luong = $request->Luong;
+
+        // Kiểm tra xem người dùng đã chọn ảnh mới chưa
+        if ($file_name !== null) {
+            $kh->AnhDaiDien = $file_name;
+        }
+        $kh->save();
+        return redirect()->route('ADMIN.nhanvien.index');
+    }
+
     public function create()
     {
-        //
+        $tk = TaiKhoan::all();
+        return view('ADMIN.NhanVien.edit', ['tk' => $tk]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function edit($id)
     {
-        //
+        $tk = TaiKhoan::all();
+        $db = NhanVien::where('MaNhanVien', $id)->first();
+        return view('ADMIN.NhanVien.edit', ['kh' => $db, 'tk' => $tk]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\NhanVien  $nhanVien
-     * @return \Illuminate\Http\Response
-     */
-    public function show(NhanVien $nhanVien)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\NhanVien  $nhanVien
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(NhanVien $nhanVien)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\NhanVien  $nhanVien
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, NhanVien $nhanVien)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\NhanVien  $nhanVien
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(NhanVien $nhanVien)
-    {
-        //
+        NhanVien::where('MaNhanVien', $id)->first()->delete();
+        return redirect()->route('ADMIN.nhanvien.index');
     }
 }

@@ -92,18 +92,16 @@
         </div>
 
         <div class="edit_nickname edit_chung">
-
             <div class="edit_body-inputvaten">
                 <div class="teninput">Quyền</div>
                 <select id="Quyen" name="Quyen">
-                    <option value="2">Khách hàng</option>
-                    <option value="1">Nhân viên</option>
-                    <option value="0">Quản lý</option>
+                    <option value="2" {{ (isset($tk['Quyen']) && $tk['Quyen'] == 2) ? 'selected' : '' }}>Khách hàng</option>
+                    <option value="1" {{ (isset($tk['Quyen']) && $tk['Quyen'] == 1) ? 'selected' : '' }}>Nhân viên</option>
+                    <option value="0" {{ (isset($tk['Quyen']) && $tk['Quyen'] == 0) ? 'selected' : '' }}>Quản lý</option>
                 </select>
             </div>
-
-
         </div>
+
 
 
         <div class="controls">

@@ -83,9 +83,9 @@
             <!-- Top Right -->
             <div class="right-content">
               <ul class="list-main">
-                <li><i class="ti-location-pin"></i> Store location</li>
+                <li><i class="ti-location-pin"></i>Địa chỉ cửa hàng</li>
                 <li>
-                  <i class="ti-alarm-clock"></i> <a href="#">Daily deal</a>
+                  <i class="ti-alarm-clock"></i> <a href="#">Thời gian làm việc</a>
                 </li>
 
                 @if(session('TaiKhoan'))
@@ -113,7 +113,7 @@
           <div class="col-lg-2 col-md-2 col-12">
             <!-- Logo -->
             <div class="logo">
-              <a href="/index"><img src="{{asset('images/logo.png')}}" alt="logo" /></a>
+              <a href="/"><img src="{{asset('images/logo.png')}}" alt="logo" /></a>
             </div>
             <!--/ End Logo -->
 
@@ -140,13 +140,11 @@
             <div class="search-bar-top">
               <div class="search-bar">
                 <select>
-                  <option selected="selected">All Category</option>
-                  <option>watch</option>
-                  <option>mobile</option>
-                  <option>kid’s item</option>
+                  <option selected="selected">Danh mục</option>
+                  <option>Bài viết</option>
                 </select>
                 <form>
-                  <input name="search" placeholder="Search Products Here....." type="search" />
+                  <input name="search" placeholder="Vui lòng điền thông tin tìm kiếm....." type="search" />
                   <button class="btnn"><i class="ti-search"></i></button>
                 </form>
               </div>
@@ -161,7 +159,6 @@
               <div class="sinlge-bar">
                 <a href="#" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
               </div>
-              @if(session('TaiKhoan'))
               <div class="sinlge-bar shopping">
                 <a href="/cart" class="single-icon"><i class="ti-bag"></i>
                   <span class="total-count">{{$cart->getTotalQuality()}}</span></a>
@@ -192,7 +189,6 @@
                 </div>
                 <!--/ End Shopping Item -->
               </div>
-              @endif
 
             </div>
           </div>
@@ -221,18 +217,14 @@
                   <div class="navbar-collapse">
                     <div class="nav-inner">
                       <ul class="nav main-menu menu navbar-nav">
-                        <li class="active"><a href="/index">Trang Chủ</a></li>
-                        <li><a href="/product">Quạt</a></li>
-                        <li><a href="#">Service</a></li>
-                        <li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
+                        <li class="active"><a href="/">Trang Chủ</a></li>
+                        <!-- <li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
                           <ul class="dropdown">
                             <li><a href="cart.html">Cart</a></li>
                             <li><a href="checkout.html">Checkout</a></li>
                           </ul>
-                        </li>
-                        <li><a href="#">Pages</a></li>
+                        </li> -->
                         <li><a href="/blog">Bài viết</a>
-
                         </li>
                         <li><a href="/contact">Liên hệ</a></li>
                       </ul>

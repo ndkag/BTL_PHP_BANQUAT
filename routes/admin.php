@@ -28,7 +28,7 @@ use App\Models\LoaiQuat;
 use Illuminate\Auth\Events\Login;
 
 
-Route::get('/admin/index', [Index_AdminController::class, 'index']);
+Route::get('/admin/index', [Index_AdminController::class, 'index'])->name('admin.index');
 
 //bảng tài khoản
 Route::get('/admin/user', [TaiKhoanController::class, 'index'])->name('ADMIN.TaiKhoan.index');
@@ -90,3 +90,10 @@ Route::get('/admin/khachhang/{id}/del', [KhachHangController::class, 'destroy'])
 Route::get('/admin/khachhang/create', [KhachHangController::class, 'create']);
 Route::get('/admin/khachhang/{id}/edit', [KhachHangController::class, 'edit'])->name('khachhang.edit');
 Route::post('/admin/khachhang/{id}/save', [KhachHangController::class, 'save'])->name('khachhang.save');
+
+//Nhân viên
+Route::get('/admin/nhanvien', [NhanVienController::class, 'index'])->name('ADMIN.nhanvien.index');
+Route::get('/admin/nhanvien/{id}/del', [NhanVienController::class, 'destroy']);
+Route::get('/admin/nhanvien/create', [NhanVienController::class, 'create']);
+Route::get('/admin/nhanvien/{id}/edit', [NhanVienController::class, 'edit'])->name('nhanvien.edit');
+Route::post('/admin/nhanvien/{id}/save', [NhanVienController::class, 'save'])->name('nhanvien.save');

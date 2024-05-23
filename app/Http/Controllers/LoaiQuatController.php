@@ -22,14 +22,38 @@ class LoaiQuatController extends Controller
         // Phân trang cho kết quả
 
         $db = $query->paginate(10);
-        return view('ADMIN.LoaiQuat.index', ['lq' => $db, 'search' => $search ]);
+        return view('ADMIN.LoaiQuat.index', ['lq' => $db, 'search' => $search]);
     }
 
-    public function index_u($id)
+
+    public function index_u(Request $request, $id)
     {
-        $db = Quat::where('MaLoaiQuat', $id)->get();
-        return view('USER.listProduct', ['hot' => $db]);
+        $query = Quat::where('MaLoaiQuat', $id);
+
+        if ($request->filled('timkiem')) {
+            $search = $request->input('timkiem');
+            $query->where(function ($query) use ($search) {
+                $query->where('TenQuat', 'like', '%' . $search . '%');
+            });
+        }
+        if ($request->filled('giatu')) {
+            $query->where('gia', '>=', $request->input('giatu'));
+        }
+
+        if ($request->filled('giaden')) {
+            $query->where('gia', '<=', $request->input('giaden'));
+        }
+
+        $db = $query->paginate(10);
+
+        return view('USER.listProduct', [
+            'hot' => $db,
+            'timkiem' => $request->input('timkiem'),
+            'giatu' => $request->input('giatu'),
+            'giaden' => $request->input('giaden'),
+        ]);
     }
+
 
     public function create()
     {
